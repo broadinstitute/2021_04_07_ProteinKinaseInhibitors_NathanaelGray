@@ -1,0 +1,75 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(dplyr)
+library(magrittr)
+library(cytominer)
+library(foreach)
+library(stringr)
+library(readr)
+library(iterators)
+library(doParallel)
+library(reshape2)
+library(psych)
+library(ggplot2)
+library(readbulk)
+install_github("kassambara/factoextra")
+library(factoextra)
+```
+
+```{Importing data}
+df <- data.frame(readr::read_csv("/Users/habbasi/Desktop/Gray_Turbyville_project/2018_11_20_Batch1/2018_11_20_Batch1_collapsed.csv"),  stringsAsFactors =F)
+```
+
+
+```{r}
+ data <- df %>% filter(Metadata_Plate_Map_Name == "C-7210-01-CMP-010-turbyville-2") %>%
+  #filter(Metadata_Plate == "BR00100033") %>%
+      dplyr::collect()
+
+
+
+
+```
+
+```{r}
+# No of replicates for each sample
+w = data %>% select(Metadata_broad_sample) %>% count()
+w
+View(w)
+```
+
+```{r}
+metadata <- colnames(data_gray)[which(str_detect(colnames(data_gray), "Metadata_"))]
+metadata <- data_gray %>% select(one_of(metadata)) %>% dplyr::collect()
+variables <- colnames(data_gray)[which(!str_detect(colnames(data_gray), "Metadata_"))]
+```
+
+
+```{r}
+pc <- prcomp(data[, variables], # each principle component is a normalized linear combination of original variables
+             center=TRUE,
+             scale =TRUE) 
+# attributes(pc)
+# summary(pc)   
+
+```
+
+```{r}
+get_eig(pc)
+fviz_eig(pc, addlabels=TRUE, hjust = -0.3)
+# screeplot(pc, type = "line")
+# variance <- pc$x
+# PoV <- pc$sdev^2/sum(pc$sdev^2)
+# plot(PoV, xlab="PC", ylab="Proportion of Variance")
+
+```
+
+```{r}
+pc_plot<-autoplot(prcomp(data_gray[, variables]), data=data_gray, colour ='Metadata_broad_sample')
+pc_plot
+```
+
