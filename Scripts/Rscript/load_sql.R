@@ -59,10 +59,10 @@ for (i in 1:length(sql.path)) {
   # reading sqlite file
   sql_data <- as.data.frame(lapply(sql.path[i], read_sql))
   
-  selected_wells <- c('P01','O07','L12','D19','P24','A13','A12','D14',
-                      'I04','A19','B04','K14','O06','C15','C11','M07',
-                      'G05','G09','G18','G22','H05','H09','H18','H22',
-                      'I03','I07','I16','I20','J03','J07','J16','J20')
+  selected_wells <- c('L02','N19','H10','O19','N17','A20','N22','D09','O05','O10','C05','A21',
+                      'P08','O23','B06','N10','E03','E04','E05','E07','E08',
+                      'E09','E16','E17','E18','E20','E21','E22','F03','F07','F16','F20','K05','K08',
+                      'K18','K21','L03','L05','L06','L07','L08','L09','L16','L18','L19','L20','L21','L22')
   
   print("Step4")
   
@@ -77,6 +77,6 @@ for (i in 1:length(sql.path)) {
   
   
   
-  readr::write_csv(sql_data, paste0(output,plate.list[i], "/", plate.list[i], "_selected_wells", ".csv"))
+  readr::write_csv(sql_data, paste0(output,plate.list[i], "/", plate.list[i], "_selected_PIN_DCLK_wells", ".csv"))
   print("Successfully executed") 
 }
