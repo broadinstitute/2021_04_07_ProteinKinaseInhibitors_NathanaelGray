@@ -1,4 +1,4 @@
-# ProteinKinase_NathananelGray
+# ProteinKinase_NathanaelGray
 
 Goal:
 - Characterization of selective Protein kinase inhibitors using Cellpainting assay 
